@@ -6,6 +6,8 @@
 
 #define SPECIES_FERA "fera"
 
+#define SPECIES_TZIMISCE_ZULO_FORM "zulo"
+
 #define SPECIES_FERA_HOMID "homid"
 #define SPECIES_FERA_BESTIAL "bestial"
 #define SPECIES_FERA_WAR "war"
