@@ -18,7 +18,7 @@
 		if(ispath(discipline, /datum/discipline/vicissitude))
 			return TRUE
 	return FALSE
-
+// Sabby: below was used, afaik, for choosing the different old basicmob zulo sprites.
 /datum/preference/choiced/subsplat/zulo_form/init_possible_values()
 	var/list/values = list()
 	for(var/name in GLOB.zulo_forms)
