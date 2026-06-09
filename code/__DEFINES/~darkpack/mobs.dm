@@ -6,8 +6,6 @@
 
 #define SPECIES_FERA "fera"
 
-#define SPECIES_TZIMISCE_ZULO_FORM "zulo"
-
 #define SPECIES_FERA_HOMID "homid"
 #define SPECIES_FERA_BESTIAL "bestial"
 #define SPECIES_FERA_WAR "war"
@@ -32,3 +30,6 @@
 #define isnpc(A) (istype(A, /mob/living/carbon/human/npc))
 
 #define INCORPOREAL_MOVE_AVATAR 4 // Avatar incorporeal movement
+
+// Required definition for Zulo carbon form rework
+#define SPECIES_ZULO_FORM "zulo"
