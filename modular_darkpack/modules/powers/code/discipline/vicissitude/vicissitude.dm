@@ -189,7 +189,7 @@
 	var/form_name = owner.client?.prefs.read_preference(/datum/preference/choiced/subsplat/zulo_form)
 	// Sabby: below is a new addition, which pulls the species from user selection based on original glob list, to determine which inheriting datum to use.
 	var/species_type = GLOB.zulo_species[form_name] || /datum/species/tzimisce_zulo_form/noble // Sabby: attempts to default to 'noble' Tzim sprite option/datum in case anything goes wrong.
-	owner.set_species(species_type) // Sabby: picks the inheriting species datum matching the player's character screen selection
+	owner.set_species(mrace = species_type, icon_update = TRUE, pref_load = TRUE, replace_missing = FALSE) // Sabby: picks the inheriting species datum matching the player's character screen selection
 
 
 // Sabby: taking a reference from old code, I added in deactivate functions for the toggled carbon form. Could make the deactivate quicker?

@@ -24,7 +24,7 @@
 	is_dimorphic = FALSE
 	unarmed_sharpness = SHARP_EDGED
 	unarmed_attack_verbs = list("slash", "tear","gash","cut")
-	unarmed_attack_verbs_continuous = list("slashes", "tears","gash","cuts")
+	unarmed_attack_verbs_continuous = list("slashes", "tears","gashes","cuts")
 	appendage_noun = "claw"
 	unarmed_attack_effect = ATTACK_EFFECT_CLAW
 	unarmed_attack_sound = 'sound/items/weapons/slash.ogg'
@@ -45,9 +45,9 @@
 // 3. There is an extension to Aseprite 'aseprite-dmi' which lets you easily open and work with dmi files on it.
 // 4. Open zulo_bodyparts.dmi for 64x64 pixel sprites, or bodyparts_greyscale.dmi for 32x32.
 // 5. Save to new frames on the .dmi each of the six limb parts for all four cardinal directions.
-// 6. Make sure to create a name for your new sprite there and use the naming pattern (i.e.: 4armtzi_head, 4armtzi_l_hand, etc.)
+// 6. Make sure to create a name for your new sprite there and use the naming pattern (i.e.: 4armstzi_head, 4armstzi_l_hand, etc.)
 // 7. Create a new datum below as: 'obj/item/bodypart/head/zulo/[insert_name_of_new_sprite_here]'
-// 8. Follow the pattern below to set limb_id (use the name you created for the dmi (such as '4armtzi')) and the path to the dmi.
+// 8. Follow the pattern below to set limb_id (use the name you created for the dmi (such as '4armstzi')) and the path to the dmi.
 // 9. Save and continue by following instructions on Zulo.dm
 // 10. Go to zulo_forms.dmi (same folder as zulo_bodyparts).
 // 11. Create a opy of your sprites that is fully flattened into one layer, no separate limbs.
@@ -69,7 +69,7 @@ created at the top of zulo.dm.
  */
 
 
-// Sabby: Beast form uses nobletzi limb sprites
+// Sabby: Noble form uses nobletzi limb sprites
 /obj/item/bodypart/head/zulo/noble
 	limb_id = "nobletzi"
 
@@ -81,6 +81,7 @@ created at the top of zulo.dm.
 
 /obj/item/bodypart/arm/right/zulo/noble
 	limb_id = "nobletzi"
+
 
 /obj/item/bodypart/leg/left/zulo/noble
 	limb_id = "nobletzi"
@@ -113,27 +114,27 @@ created at the top of zulo.dm.
 	limb_id = "weretzi"
 	icon_greyscale = 'modular_darkpack/modules/powers/icons/zulo_bodyparts.dmi'
 
-// Sabby: Brust form uses 4armtzi limb sprites
+// Sabby: Brust form uses 4armstzi limb sprites
 /obj/item/bodypart/head/zulo/brust
-	limb_id = "4armtzi"
+	limb_id = "4armstzi"
 	icon_greyscale = 'modular_darkpack/modules/powers/icons/zulo_bodyparts.dmi'
 
 /obj/item/bodypart/chest/zulo/brust
-	limb_id = "4armtzi"
+	limb_id = "4armstzi"
 	icon_greyscale = 'modular_darkpack/modules/powers/icons/zulo_bodyparts.dmi'
 
 /obj/item/bodypart/arm/left/zulo/brust
-	limb_id = "4armtzi"
+	limb_id = "4armstzi"
 	icon_greyscale = 'modular_darkpack/modules/powers/icons/zulo_bodyparts.dmi'
 
 /obj/item/bodypart/arm/right/zulo/brust
-	limb_id = "4armtzi"
+	limb_id = "4armstzi"
 	icon_greyscale = 'modular_darkpack/modules/powers/icons/zulo_bodyparts.dmi'
 
 /obj/item/bodypart/leg/left/zulo/brust
-	limb_id = "4armtzi"
+	limb_id = "4armstzi"
 	icon_greyscale = 'modular_darkpack/modules/powers/icons/zulo_bodyparts.dmi'
 
 /obj/item/bodypart/leg/right/zulo/brust
-	limb_id = "4armtzi"
+	limb_id = "4armstzi"
 	icon_greyscale = 'modular_darkpack/modules/powers/icons/zulo_bodyparts.dmi'

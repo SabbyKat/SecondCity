@@ -69,6 +69,9 @@ GLOBAL_LIST_INIT(zulo_species, list(
 	var/old_size
 	// Sabby: Zulo form needs to keep a backpack because it's not reasonable for the form to be forced to drop the tzimisce clan bane Bag of Ground.
 	var/obj/item/zulo_backpack_to_hide
+	var/mob_pixel_w = 0
+	var/mob_pixel_z = 0
+	var/sprite_size_transform = 1 //Sabby: in case any new future sprites are 32x32, not 64x64, overwrite this with 1.50 on the new form's datum.
 	// Sabby: Zulo-specific bodyparts are defined in zulo_organs.dm.
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/zulo,
@@ -78,9 +81,6 @@ GLOBAL_LIST_INIT(zulo_species, list(
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/zulo,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/zulo,
 	)
-	var/mob_pixel_w = 0
-	var/mob_pixel_z = 0
-	var/sprite_size_transform = 1 //Sabby: in case any new future sprites are 32x32, not 64x64, overwrite this with 1.50 on the new form's datum.
 	// Sabby: mut_color to work with TRAIT_MUTANT_COLORS to keep sprite color from going whack.
 	fixed_mut_color = "#e5e0d0"
 
@@ -148,7 +148,7 @@ Each inherits from the parent zulo datum, and all each does is simply override. 
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/zulo/beast,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/zulo/beast,
 	)
-// Sabby: Beast form uses 4armtzi limb sprites
+// Sabby: Brust form uses 4armstzi limb sprites
 /datum/species/tzimisce_zulo_form/brust
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/zulo/brust,
@@ -158,7 +158,7 @@ Each inherits from the parent zulo datum, and all each does is simply override. 
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/zulo/brust,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/zulo/brust,
 	)
-// Sabby: Beast form uses nobletzi limb sprites
+// Sabby: Noble form uses nobletzi limb sprites
 /datum/species/tzimisce_zulo_form/noble
 	sprite_size_transform = 1.50 //Sabby: a bit of visual enlargement on this zulo sprite because it's 32x32 base, not 64x64
 	bodypart_overrides = list(
