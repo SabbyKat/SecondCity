@@ -148,7 +148,7 @@
 
 	level = 4
 	violates_masquerade = TRUE
-	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_FREE_HAND | DISC_CHECK_IMMOBILE
+	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE // Sabby: matches bloodform flags below to work while cuffed. Placeholder until cuffbreaking code is done.
 	target_type = NONE
 	vitae_cost = 2
 	aggravating = TRUE
@@ -170,11 +170,17 @@
 		activating = TRUE
 		owner.do_jitter_animation(2 TURNS)
 		to_chat(owner, span_warning("Your body slowly starts to warp and twist into a horrifying war form..."))
-		if(do_after(owner, 2 TURNS, timed_action_flags = (IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE | IGNORE_HELD_ITEM)))
+		var/zulo_interrupt_flags = IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE | IGNORE_HELD_ITEM
+		if(HAS_TRAIT(owner, TRAIT_PROMETHEAN_CLAY)) // Sabby: Promethean Clay makes self-vicissitude changes into reflexive actions (like free actions in TTRPG). Implemented here by making the 2-turn transformation for Gen 10+ vamps impossible to interrupt.
+			zulo_interrupt_flags |= IGNORE_INCAPACITATED
+		if(do_after(owner, 2 TURNS, timed_action_flags = zulo_interrupt_flags))
 			return TRUE
 		activating = FALSE
 		return FALSE
 	else if(owner.get_generation() <= 9)
+		if(HAS_TRAIT(owner, TRAIT_PROMETHEAN_CLAY)) // Sabby: Promethean Clay makes self-vicissitude changes into reflexive actions (like free actions in TTRPG). For Gen 9 and less able to spend 2+ BP and change in one single TTRPG turn, easier to just make it an instant action.
+			owner.do_jitter_animation(2 SECONDS) // Sabby: purely cosmetic anim.
+			return TRUE
 		activating = TRUE
 		owner.do_jitter_animation(1 TURNS)
 		to_chat(owner, span_warning("Your body quickly starts to warp and twist into a horrifying war form..."))
@@ -190,13 +196,14 @@
 	// Sabby: below is a new addition, which pulls the species from user selection based on original glob list, to determine which inheriting datum to use.
 	var/species_type = GLOB.zulo_species[form_name] || /datum/species/tzimisce_zulo_form/noble // Sabby: attempts to default to 'noble' Tzim sprite option/datum in case anything goes wrong.
 	owner.set_species(mrace = species_type, icon_update = TRUE, pref_load = TRUE, replace_missing = FALSE) // Sabby: picks the inheriting species datum matching the player's character screen selection
+	owner.uncuff() // Sabby: mimics bloodform for uncuffing. Placeholder until cuffbreaking code is done.
 
 
-// Sabby: taking a reference from old code, I added in deactivate functions for the toggled carbon form. Could make the deactivate quicker?
+// Sabby: taking a reference from old code, I added in deactivate functions for the toggled carbon form. Made deactivate quicker
 /datum/discipline_power/vicissitude/horrid_form/deactivate()
 	. = ..()
-	owner.do_jitter_animation(1 TURNS)
-	if(!do_after(owner, 1 TURNS, owner, timed_action_flags = (IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE | IGNORE_HELD_ITEM)))
+	owner.do_jitter_animation(2 SECONDS)
+	if(!do_after(owner, 2 SECONDS, owner, timed_action_flags = (IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE | IGNORE_HELD_ITEM)))
 		return FALSE // Sabby: copied from pre activation checks above
 	owner.set_species(mrace = /datum/species/human, icon_update = TRUE, pref_load = TRUE, replace_missing = FALSE) // Sabby: on a hunch, decided to mimic blood form code. It fixed an issue I was having with disappearing tzim beast marks on form revert.
 	playsound(get_turf(owner), 'modular_darkpack/modules/powers/sounds/vicissitude.ogg', 100, TRUE, -6) // Sabby: just an SFX from oldcode, pulling in the new vicissitude.ogg path in the rebase file structure obvs */
