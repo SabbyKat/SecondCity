@@ -112,6 +112,8 @@ GLOBAL_LIST_INIT(zulo_species, list(
 	if(zulo_backpack_to_hide)
 		zulo_backpack_to_hide.worn_icon_state = "empty"
 		human_who_gained_species.update_worn_back()
+	// Sabby: learned from fera code. Needed for revert on death.
+	RegisterSignal(human_who_gained_species, COMSIG_LIVING_DEATH, PROC_REF(revert_on_zulo_death))
 
 /datum/species/tzimisce_zulo_form/on_species_loss(mob/living/carbon/human/human, datum/species/new_species, pref_load)
 	. = ..()
@@ -121,6 +123,7 @@ GLOBAL_LIST_INIT(zulo_species, list(
 		human.facial_hairstyle = human.client.prefs.read_preference(/datum/preference/choiced/facial_hairstyle)
 	human.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
 	human.remove_offsets(type)
+	human.update_mob_height() // Sabby: restores character pre-transform height.
 	human.update_transform(old_size/human.current_size)
 	human.st_remove_stat_mod(STAT_APPEARANCE, type) //Sabby: this should restore user's social stats when exiting Zulo
 	human.st_remove_stat_mod(STAT_MANIPULATION, type) //Sabby: this should restore user's social stats when exiting Zulo
@@ -132,6 +135,16 @@ GLOBAL_LIST_INIT(zulo_species, list(
 		zulo_backpack_to_hide.worn_icon_state = initial(zulo_backpack_to_hide.worn_icon_state)
 		human.update_worn_back()
 		zulo_backpack_to_hide = null
+	// Sabby: learned from fera code. Needed for revert on death.
+	UnregisterSignal(human, COMSIG_LIVING_DEATH)
+
+// Sabby: similar to fera_species.dm line 190. Need to force same height for all zulo to avoid pixel sprite distortion.
+/datum/species/tzimisce_zulo_form/update_species_heights(mob/living/carbon/human/holder)
+	return HUMAN_HEIGHT_MEDIUM
+
+// Sabby: learning from fera code, this is what feeds into the registered signal gained/lost with species
+/datum/species/tzimisce_zulo_form/proc/revert_on_zulo_death(mob/living/carbon/human/source)
+	source.set_species(mrace = /datum/species/human, icon_update = TRUE, pref_load = TRUE, replace_missing = FALSE)
 
 /* Sabby: This is a very clumsy solution that I'd love help improving in the future.
 Basically, the only way I could figure out to account for multiple future sprites while
